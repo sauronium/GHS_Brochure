@@ -15,11 +15,10 @@ export default function Footer() {
           {/* Logo Section */}
           <div className="flex-shrink-0">
             <Image
-              src="/ghslogo.png"
+              src="/ghs-logo.png"
               alt="Global Health Strategies Logo"
               width={350}
               height={50}
-              className=""
             />
           </div>
 
@@ -43,19 +42,59 @@ export default function Footer() {
               <span className="text-xl font-medium">
                 CONNECT
               </span>
-              <div className="flex space-x-4">
-                {/* Social Media Icons using Material-UI */}
-                <Link href="#" aria-label="Facebook" className="p-2 rounded-full hover:bg-white/20 transition-colors">
-                  <FacebookRoundedIcon sx={{ fontSize: 28 }} />
+              <div className="flex space-x-3">
+                {/* Social Media Icons */}
+                <Link 
+                  href="#" 
+                  aria-label="Facebook" 
+                  className="w-12 h-12 bg-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg"
+                >
+                  <Image
+                    src="/icons/facebook.svg"
+                    alt="Facebook"
+                    width={48}
+                    height={48}
+                    className="text-[#D4763D]"
+                  />
                 </Link>
-                <Link href="#" aria-label="Twitter" className="p-2 rounded-full hover:bg-white/20 transition-colors">
-                  <XIcon sx={{ fontSize: 28 }} />
+                <Link 
+                  href="#" 
+                  aria-label="Twitter" 
+                  className="w-12 h-12 bg-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg"
+                >
+                  <Image
+                    src="/icons/twitter.svg"
+                    alt="Twitter"
+                    width={48}
+                    height={48}
+                    className="text-[#D4763D]"
+                  />
                 </Link>
-                <Link href="#" aria-label="Instagram" className="p-2 rounded-full hover:bg-white/20 transition-colors">
-                  <InstagramIcon sx={{ fontSize: 28 }} />
+                <Link 
+                  href="#" 
+                  aria-label="Instagram" 
+                  className="w-12 h-12 bg-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg"
+                >
+                  <Image
+                    src="/icons/instagram.svg"
+                    alt="Instagram"
+                    width={48}
+                    height={48}
+                    className="text-[#D4763D]"
+                  />
                 </Link>
-                <Link href="#" aria-label="Youtube" className="p-2 rounded-full hover:bg-white/20 transition-colors">
-                  <YouTubeIcon sx={{ fontSize: 28 }} />
+                <Link 
+                  href="#" 
+                  aria-label="YouTube" 
+                  className="w-12 h-12 bg-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg"
+                >
+                  <Image
+                    src="/icons/youtube.svg"
+                    alt="YouTube"
+                    width={48}
+                    height={48}
+                    className="text-[#D4763D]"
+                  />
                 </Link>
               </div>
             </div>

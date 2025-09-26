@@ -44,7 +44,7 @@ export default function Header() {
         {/* Logo */}
         <div className="flex items-center space-x-3">
           <Image
-            src="/ghslogo.png" // Update this path to your actual logo
+            src="/ghs-logo.png" // Update this path to your actual logo
             alt="Global Health Strategies Logo"
             width={300}
             height={300}
