@@ -10,56 +10,61 @@ import HealthAndSafetyIcon from "@mui/icons-material/HealthAndSafety";
 import LightBulbIcon from "@mui/icons-material/Lightbulb";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import Image from "next/image";
+
+interface Service {
+  id: number;
+  title: string;
+  iconSrc: string;
+  iconAlt: string;
+}
 
 export default function ServicesCarousel() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
-  const services = [
+  const services: Service[] = [
     {
       id: 1,
-      title: "Media and communications",
-      IconComponent: CampaignIcon,
+      title: "Media and Communications",
+      iconSrc: "/icons/media_and_communication.svg",
+      iconAlt: "Media and communications icon",
     },
     {
       id: 2,
       title: "Policy Analysis and Strategy",
-      IconComponent: PolicyIcon,
+      iconSrc: "/icons/policy_analysis.svg",
+      iconAlt: "Policy analysis icon",
     },
     {
       id: 3,
-      title: "Social media & digital health",
-      IconComponent: ShareIcon,
+      title: "Social Media & Digital Health",
+      iconSrc: "/icons/social_media.svg",
+      iconAlt: "Social media icon",
     },
     {
       id: 4,
-      title: "Research & Data Analytics",
-      IconComponent: AnalyticsIcon,
+      title: "Conference Production & Communications",
+      iconSrc: "/icons/conference.svg",
+      iconAlt: "Research and analytics icon",
     },
     {
       id: 5,
-      title: "Training & Capacity Building",
-      IconComponent: SchoolIcon,
+      title: "Fiscal and Market Analysis",
+      iconSrc: "/icons/fiscal_market_analysis.svg",
+      iconAlt: "Training icon",
     },
     {
       id: 6,
-      title: "Partnership Development",
-      IconComponent: ConnectWithoutContactIcon,
+      title: "Community Engagement",
+      iconSrc: "/icons/community_engagement.svg",
+      iconAlt: "Partnership development icon",
     },
     {
       id: 7,
-      title: "Program Evaluation",
-      IconComponent: AssessmentIcon,
-    },
-    {
-      id: 8,
-      title: "Health Communications",
-      IconComponent: HealthAndSafetyIcon,
-    },
-    {
-      id: 9,
-      title: "Digital Innovation",
-      IconComponent: LightBulbIcon,
+      title: "Coalition and Champion Building",
+      iconSrc: "/icons/coalition_champion.svg",
+      iconAlt: "Program evaluation icon",
     },
   ];
 
@@ -85,7 +90,7 @@ export default function ServicesCarousel() {
         {getCurrentServices().map((service, index) => (
           <div
             key={service.id}
-            className={`relative w-85 px-5 py-10 rounded-3xl transition-all duration-300 cursor-pointer transform flex flex-col justify-between ${
+            className={`relative w-85 px-5 py-12 rounded-3xl transition-all duration-300 cursor-pointer transform flex flex-col justify-between ${
               hoveredCard === service.id
                 ? "bg-[#3B818F] text-white shadow-xl"
                 : "bg-[#F3F3F3] text-[#3B818F] hover:shadow-lg"
@@ -99,15 +104,21 @@ export default function ServicesCarousel() {
           >
             {/* Icon at top */}
             <div className="flex justify-center mb-4">
-              <div
-                className={`w-28 h-28 rounded-lg flex items-center justify-center ${
-                  hoveredCard === service.id ? "bg-white/20" : "bg-[#3B818F]/10"
-                }`}
-              >
-                <service.IconComponent
-                  sx={{
-                    fontSize: 100,
-                    color: hoveredCard === service.id ? "white" : "#3B818F",
+              <div>
+                <Image
+                  src={service.iconSrc}
+                  alt={service.iconAlt}
+                  width={130}
+                  height={130}
+                  className={`transition-colors duration-300 ${
+                    hoveredCard === service.id 
+                      ? "filter brightness-0 invert" // Makes SVG white when hovered
+                      : ""
+                  }`}
+                  style={{
+                    filter: hoveredCard === service.id 
+                      ? "brightness(0) invert(1)" 
+                      : "none"
                   }}
                 />
               </div>

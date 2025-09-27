@@ -1,22 +1,16 @@
 "use client";
 import Image from "next/image";
-import PublicIcon from "@mui/icons-material/Public";
-import MedicationLiquidIcon from "@mui/icons-material/MedicationLiquid";
-import GroupsIcon from "@mui/icons-material/Groups";
-import HandshakeIcon from "@mui/icons-material/Handshake";
-import MedicalInformationIcon from "@mui/icons-material/MedicalInformation";
-import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import { SvgIconComponent } from "@mui/icons-material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ServicesCarousel from "@/components/ServicesCarousel";
 import Link from "next/link";
 
 interface ImpactStat {
   value: string;
   label: string;
-  IconComponent: SvgIconComponent;
+  iconSrc: string; 
+  iconAlt: string;
 }
 
 interface Leader {
@@ -28,30 +22,61 @@ interface LeadershipData {
   [key: string]: Leader[];
 }
 
+interface CarouselImage {
+  src: string;
+  alt: string;
+}
+
 type Region = "GLOBAL" | "ASIA" | "AFRICA";
 
 export default function Home() {
   const [activeRegion, setActiveRegion] = useState<Region>("GLOBAL");
   const [currentLeaderIndex, setCurrentLeaderIndex] = useState<number>(0);
+  const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(true);
 
   const regions: Region[] = ["GLOBAL", "ASIA", "AFRICA"];
+
+  // Carousel images - replace these with your actual image paths
+  const carouselImages: CarouselImage[] = [
+    { src: "/images/teamImage.png", alt: "Global Health Strategies team meeting" },
+    { src: "https://thumbs.dreamstime.com/b/climbing-helping-team-work-success-concept-concepts-64120507.jpg", alt: "Global Health Strategies conference" },
+    { src: "https://img.freepik.com/free-photo/silhouette-confident-businesspeople_1098-1768.jpg?semt=ais_hybrid&w=740&q=80", alt: "Global Health Strategies fieldwork" },
+    { src: "https://images.ctfassets.net/pdf29us7flmy/1tAhoHgjtm3IJsKIzMpbV0/67820b755f89d35e9fabad6f05dcd95b/Team_leader_-_creative.jpg?w=720&q=100&fm=jpg", alt: "Global Health Strategies collaboration" },
+  ];
+
+  // Auto-play functionality
+  useEffect(() => {
+    if (isAutoPlaying) {
+      const interval = setInterval(() => {
+        setCurrentImageIndex((prev) => 
+          prev === carouselImages.length - 1 ? 0 : prev + 1
+        );
+      }, 4000); // Change image every 4 seconds
+
+      return () => clearInterval(interval);
+    }
+  }, [isAutoPlaying, carouselImages.length]);
 
   // Sample leadership data - you can replace with your actual data
   const leadershipData: LeadershipData = {
     GLOBAL: [
       { name: "DAVID GOLD", designation: "CEO & FOUNDER" },
-      { name: "SARAH JOHNSON", designation: "GLOBAL DIRECTOR" },
-      { name: "MICHAEL CHEN", designation: "STRATEGY HEAD" },
+      { name: "ANJALI NAYYAR", designation: "GLOBAL DIRECTOR" },
+      { name: "LINN DORIN", designation: "STRATEGY HEAD" },
     ],
     ASIA: [
-      { name: "ANJALI NAYYAR", designation: "REGIONAL DIRECTOR" },
-      { name: "KENJI TANAKA", designation: "OPERATIONS MANAGER" },
-      { name: "PRIYA SHARMA", designation: "PROGRAM COORDINATOR" },
+      { name: "HITESH MAHAJAN", designation: "REGIONAL DIRECTOR" },
+      { name: "ANJALI NAYYAR", designation: "OPERATIONS MANAGER" },
+      { name: "NILANJANA BOSE", designation: "PROGRAM COORDINATOR" },
+      { name: "SUCHI MAHAJAN", designation: "PROGRAM COORDINATOR" },
+      { name: "KAUSHIK BOSE", designation: "PROGRAM COORDINATOR" },
     ],
     AFRICA: [
-      { name: "KWAME ASANTE", designation: "REGIONAL DIRECTOR" },
-      { name: "AMARA OKAFOR", designation: "HEALTH ADVISOR" },
-      { name: "HASSAN OMAR", designation: "COMMUNITY LIAISON" },
+      { name: "ANJALI NAYYAR", designation: "REGIONAL DIRECTOR" },
+      { name: "SARAH ANDRIES", designation: "HEALTH ADVISOR" },
+      { name: "SIKELELWA (SIKI) GEYA MDINGI", designation: "COMMUNITY LIAISON" },
+      { name: "NATASHA GODINHO", designation: "COMMUNITY LIAISON" },
     ],
   };
 
@@ -75,25 +100,51 @@ export default function Home() {
     setCurrentLeaderIndex(0);
   };
 
+  // Image carousel navigation functions
+  const handlePreviousImage = (): void => {
+    setIsAutoPlaying(false);
+    setCurrentImageIndex((prev: number) =>
+      prev === 0 ? carouselImages.length - 1 : prev - 1
+    );
+    // Resume auto-play after 10 seconds
+    setTimeout(() => setIsAutoPlaying(true), 10000);
+  };
+
+  const handleNextImage = (): void => {
+    setIsAutoPlaying(false);
+    setCurrentImageIndex((prev: number) =>
+      prev === carouselImages.length - 1 ? 0 : prev + 1
+    );
+    // Resume auto-play after 10 seconds
+    setTimeout(() => setIsAutoPlaying(true), 10000);
+  };
+
+  const goToImage = (index: number): void => {
+    setIsAutoPlaying(false);
+    setCurrentImageIndex(index);
+    // Resume auto-play after 10 seconds
+    setTimeout(() => setIsAutoPlaying(true), 10000);
+  };
+
   const impactStats: ImpactStat[] = [
-    { value: "75+", label: "Countries", IconComponent: PublicIcon },
+    { value: "75+", label: "Countries", iconSrc: "/icons/75+Countries.svg", iconAlt: "Countries Icon" },
     {
       value: "120+",
       label: "Health Campaigns",
-      IconComponent: MedicationLiquidIcon,
+      iconSrc: "/icons/health_campaigns.svg", iconAlt: "Health Icon"
     },
-    { value: "500M+", label: "Lives Touched", IconComponent: GroupsIcon },
+    { value: "500M+", label: "Lives Touched", iconSrc: "/icons/lives_touched.svg", iconAlt: "Lives Icon" },
     {
       value: "1000+",
       label: "Strategic Partners",
-      IconComponent: HandshakeIcon,
+      iconSrc: "/icons/strategic_partners.svg", iconAlt: "partners Icon"
     },
     {
       value: "50+",
       label: "Global Health Experts",
-      IconComponent: MedicalInformationIcon,
+      iconSrc: "/icons/global_health_experts.svg", iconAlt: "experts Icon"
     },
-    { value: "20", label: "Years of Impact", IconComponent: TrendingUpIcon },
+    { value: "20", label: "Years of Impact", iconSrc: "/icons/20_years_of_impact.svg", iconAlt: "impact Icon" },
   ];
 
   return (
@@ -115,14 +166,56 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right Side - Image with overlapping red box */}
+            {/* Right Side - Image Carousel with overlapping red box */}
             <div className="relative w-[70%] h-[600px]">
-              <Image
-                src="/images/teamImage.png"
-                alt="Global Health Strategies team meeting"
-                fill
-                className="object-cover shadow-2xl"
-              />
+              {/* Image Carousel Container */}
+              <div className="relative w-full h-full overflow-hidden">
+                {carouselImages.map((image, index) => (
+                  <div
+                    key={index}
+                    className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                      index === currentImageIndex ? "opacity-100" : "opacity-0"
+                    }`}
+                  >
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      fill
+                      className="object-cover shadow-2xl"
+                    />
+                  </div>
+                ))}
+
+                {/* Carousel Navigation Arrows */}
+                <button
+                  onClick={handlePreviousImage}
+                  className="absolute left-6 top-1/2 transform -translate-y-1/2 z-10 w-10 h-10 bg-black/50 hover:bg-black/70 text-white rounded-full flex items-center justify-center transition-colors duration-300"
+                >
+                  <ChevronLeftIcon />
+                </button>
+                
+                <button
+                  onClick={handleNextImage}
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 w-10 h-10 bg-black/50 hover:bg-black/70 text-white rounded-full flex items-center justify-center transition-colors duration-300"
+                >
+                  <ChevronRightIcon />
+                </button>
+
+                {/* Carousel Indicators */}
+                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-10 flex space-x-2">
+                  {carouselImages.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => goToImage(index)}
+                      className={`w-2 h-2 rounded-full transition-colors duration-300 ${
+                        index === currentImageIndex
+                          ? "bg-white"
+                          : "bg-white/50 hover:bg-white/75"
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
 
               {/* Red Overlay Box - positioned to overlap image */}
               <div className="absolute -left-83 top-44 z-20">
@@ -146,8 +239,12 @@ export default function Home() {
                 <div key={stat.label} className="flex flex-col items-center">
                   <div className="w-24 h-24 border-2 border-black rounded-full flex items-center justify-center mb-4">
                     {/* Render the icon component dynamically */}
-                    <stat.IconComponent
-                      sx={{ fontSize: 48, color: "#111827" }}
+                    <Image
+                      src={stat.iconSrc}
+                      alt={stat.iconAlt}
+                      width={70}
+                      height={70}
+                      className="text-black"
                     />
                   </div>
                   <p className="text-4xl font-medium text-gray-900">
