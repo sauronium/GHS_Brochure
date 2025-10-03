@@ -6,7 +6,7 @@ export default function ContactUs() {
     <div className="min-h-screen">
       <div className="w-full bg-[#D4763D]">
         <div className="container mx-auto max-w-7xl py-28">
-          <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12 mt-10">
+          <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12 lg:mt-10">
             {/* Left Side - Contact Information */}
             <div className="flex-1 text-white">
               <h1 className="text-4xl lg:text-5xl font-bold mb-12 tracking-wide">
@@ -20,7 +20,7 @@ export default function ContactUs() {
             </div>
 
             {/* Right Side - Google Map */}
-            <div className="w-full max-w-3xl">
+            <div className="lg:w-full w-[90%] max-w-3xl">
               <div className="bg-white rounded-lg shadow-lg overflow-hidden">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3504.9220794059306!2d77.17451632528564!3d28.542061725714248!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1adc17786cbf%3A0x87a4b78c127a0133!2sGlobal%20Health%20Strategies!5e0!3m2!1sen!2sin!4v1758316812070!5m2!1sen!2sin"
